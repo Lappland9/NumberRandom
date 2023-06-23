@@ -1,0 +1,73 @@
+﻿ <!DOCTYPE html>
+<html>
+<head>
+  <title>Space Key Program</title>
+  <style>
+    #output {
+      font-size: 100px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Space Key Program</h1>
+  <p id="output">スペースキーを押すと数字が選ばれます</p>
+
+  <audio id="music" src="dramroll2.mp3" volume="100"></audio>
+
+  <script>
+    var music = document.getElementById("music");
+    var animationInterval;
+
+    // 数字のぐるぐる表示を開始
+    function startAnimation() {
+      var randomNumber = Math.floor(Math.random() * 40) + 1;
+      document.getElementById("output").innerText = randomNumber.toString();
+      animationInterval = setInterval(function() {
+        randomNumber = Math.floor(Math.random() * 40) + 1;
+        document.getElementById("output").innerText = randomNumber.toString();
+      }, 100);
+    }
+
+    // スペースキーが押された時の処理
+    function handleKeyPress(event) {
+      if (event.code === "Space") {
+        // 音楽再生
+        music.play();
+        music.volume = 1; // 音量を最大に設定
+        document.getElementById("output").innerText = "音楽を再生中";
+        startAnimation();
+ 	function getRandomNumber() {
+        var probabilityMap = {
+          7: 0.3,   // 数字7の表示確率 (30%)
+          22: 0.3,  // 数字22の表示確率 (30%)
+          24: 0.3   // 数字24の表示確率 (30%)
+        };
+        var randomNumber = Math.floor(Math.random() * 40) + 1;
+        var probability = probabilityMap[randomNumber] || 0.05;  // デフォルトの表示確率 (5%)
+        return Math.random() < probability ? randomNumber : getRandomNumber();
+      }
+        
+
+
+	// 5秒後に停止と最終結果の表示
+        setTimeout(function() {
+          music.pause();
+          music.currentTime = 0;  // 再生位置を初期化
+          clearInterval(animationInterval);
+          var randomNumber = Math.floor(Math.random() * 40) + 1;
+          document.getElementById("output").innerText = randomNumber.toString();
+        }, 3000);
+      }
+    }
+
+    // キーボードイベントを監視
+    document.addEventListener("keydown", handleKeyPress);
+  </script>
+</body>
+</html>
+
+
+
+注意:数字が決定してからスペースキーを押してください
